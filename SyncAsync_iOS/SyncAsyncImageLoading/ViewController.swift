@@ -11,7 +11,7 @@ import Kingfisher
 import Then
 
 class ViewController: UIViewController {
-    let delayedResponseURL = "http://172.30.1.24:3000"
+    let delayedResponseURL = "http://192.168.12.9:3000"
     
     let urlStr = "http://www.ibiblio.org/wm/paint/auth/munch/munch.scream.jpg"
     
@@ -151,6 +151,7 @@ class ViewController: UIViewController {
             }
     }
     
+    // 프라미스를 이용한 비동기 동작. Promise<RESULT-TYPE>
     func asyncTaskPromise(taskNo: Int) -> Promise<Int> {
         return Promise { (resolve, reject) in
             print("async task\(taskNo) started")
@@ -160,49 +161,27 @@ class ViewController: UIViewController {
                         reject(error)
                         return
                     }
-                    print("async task\(taskNo) done:", response)
+                    print("async task\(taskNo) done")
+                    // 비동기 동작 결과 전달
                     resolve(taskNo)
                 }
         }
     }
     
-    func asyncTaskWithResult(taskNo: Int) -> Result<Int, Error> {
-        var result: Result<Int, Error>!
-        AF.request(self.delayedResponseURL)
-            .responseJSON { (response) in
-                print("async task\(taskNo) done:", response)
-                result = .success(taskNo)
-            }
-        return result
-    }
-
-    
+    // Then 모듈을 이용해서
     @IBAction func showQueueExample4(_ sender: Any) {
-        
-//        let queue = DispatchQueue(label: "serial")
-//
-//        queue.async {
-//            self.asyncTask(taskNo: 1)
-//        }
-//        queue.async {
-//            self.asyncTask(taskNo: 2)
-//        }
-//        queue.async {
-//            self.asyncTask(taskNo: 3)
-//        }
-        
         asyncTaskPromise(taskNo: 1)
-            .then { (ret) -> Promise<Int> in
-                print("task1 done with \(ret)")
-                return self.asyncTaskPromise(taskNo: 2)
-            }
-            .then { (ret) -> Promise<Int> in
-                print("task2 done with \(ret)")
-                return self.asyncTaskPromise(taskNo: 3)
-            }
-            .then { (ret) -> Void in
-                print("task3 done with \(ret)")
-            }
+        .then { (ret) -> Promise<Int> in
+            print("task1 done with \(ret)")
+            return self.asyncTaskPromise(taskNo: 2)
+        }
+        .then { (ret) -> Promise<Int> in
+            print("task2 done with \(ret)")
+            return self.asyncTaskPromise(taskNo: 3)
+        }
+        .then { (ret) -> Void in
+            print("task3 done with \(ret)")
+        }
         
 
     }

@@ -27,7 +27,7 @@
                                             <action selector="loadImageSync:" destination="BYZ-38-t0r" id="MDW-1e-N8b"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Async1" id="Y99-oI-Fc7">
+                                    <barButtonItem title="A1" id="Y99-oI-Fc7">
                                         <connections>
                                             <action selector="loadImageAsync1:" destination="BYZ-38-t0r" id="yne-Fb-5AT"/>
                                         </connections>
@@ -62,6 +62,11 @@
                                             <action selector="showQueueExample4:" destination="BYZ-38-t0r" id="G6j-U8-gmh"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem title="Q5" id="1zQ-co-BnR">
+                                        <connections>
+                                            <action selector="showQueueExample5" destination="BYZ-38-t0r" id="thg-eG-OAe"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="MrO-1e-a9X">
@@ -89,7 +94,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="121.73913043478262" y="114.50892857142857"/>
+            <point key="canvasLocation" x="-259" y="30"/>
         </scene>
     </scenes>
     <resources>
