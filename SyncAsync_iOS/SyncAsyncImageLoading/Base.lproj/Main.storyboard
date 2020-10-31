@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SyncAsyncImageLoading" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="emP-hH-EpT">
+                                <rect key="frame" x="0.0" y="154" width="414" height="708"/>
+                            </imageView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EJ2-7l-na4">
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                                <items>
+                                    <barButtonItem title="Sync" id="DSk-8U-NoV">
+                                        <connections>
+                                            <action selector="loadImageSync:" destination="BYZ-38-t0r" id="MDW-1e-N8b"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Async1" id="Y99-oI-Fc7">
+                                        <connections>
+                                            <action selector="loadImageAsync1:" destination="BYZ-38-t0r" id="yne-Fb-5AT"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="A2" id="G9U-63-1ab">
+                                        <connections>
+                                            <action selector="loadImageAsync2:" destination="BYZ-38-t0r" id="Scn-JD-BW7"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="A3" id="Rl5-Mv-bBN">
+                                        <connections>
+                                            <action selector="loadImageAsync3:" destination="BYZ-38-t0r" id="ghQ-ba-XvC"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Q1" id="xdT-6n-BBw">
+                                        <connections>
+                                            <action selector="showQueueExample1:" destination="BYZ-38-t0r" id="tcf-P3-tLL"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Q2" id="4nm-17-obb">
+                                        <connections>
+                                            <action selector="showQueueExample2:" destination="BYZ-38-t0r" id="bbT-Pe-WSs"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Q3" id="0C8-eA-INT">
+                                        <connections>
+                                            <action selector="showQueueExample3:" destination="BYZ-38-t0r" id="o8e-u4-cZj"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Q4" id="5QZ-NI-cHD">
+                                        <connections>
+                                            <action selector="showQueueExample4:" destination="BYZ-38-t0r" id="G6j-U8-gmh"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="MrO-1e-a9X">
+                                <rect key="frame" x="18" y="100" width="378" height="31"/>
+                            </slider>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="emP-hH-EpT" firstAttribute="top" secondItem="MrO-1e-a9X" secondAttribute="bottom" constant="24" id="0vo-QS-0EU"/>
+                            <constraint firstItem="MrO-1e-a9X" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="2ZO-De-aO4"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="MrO-1e-a9X" secondAttribute="trailing" constant="20" id="3RY-1M-Rhz"/>
+                            <constraint firstItem="emP-hH-EpT" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="C7f-YR-dRk"/>
+                            <constraint firstItem="EJ2-7l-na4" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Elh-3d-lV6"/>
+                            <constraint firstItem="EJ2-7l-na4" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="KVl-Ur-wu0"/>
+                            <constraint firstItem="emP-hH-EpT" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="LRh-8W-T8W"/>
+                            <constraint firstItem="MrO-1e-a9X" firstAttribute="top" secondItem="EJ2-7l-na4" secondAttribute="bottom" constant="12" id="V5x-xi-idY"/>
+                            <constraint firstItem="EJ2-7l-na4" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="XJO-WF-nTC"/>
+                            <constraint firstItem="emP-hH-EpT" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="eXn-fA-M8T"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="emP-hH-EpT" id="6o9-4O-u3q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="121.73913043478262" y="114.50892857142857"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
