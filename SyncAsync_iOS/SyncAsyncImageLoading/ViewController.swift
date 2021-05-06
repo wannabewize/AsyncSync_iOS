@@ -32,6 +32,7 @@ class ViewController: UIViewController {
         
     }
 
+    // 동기식 네트워크 - UI가 블록됨
     @IBAction func loadImageSync(_ sender: Any) {
         imageView.image = nil
 
@@ -42,7 +43,31 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func loadImageAsync1(_ sender: Any) {
+    // URLSession, Task를 이용한 비동기식 네트워크
+    @IBAction func loadImageURLSession(_ sender: Any) {
+        imageView.image = nil
+        
+        if let url = URL(string: urlStr) {
+
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                print("Task Start")
+                guard let data = data else {
+                    return
+                }
+                let image = UIImage(data: data)
+                // 앱 UI 접근은 메인 쓰레드에서
+                DispatchQueue.main.async {
+                    print("isMainThread", Thread.isMainThread)
+                    self.imageView.image = image
+                }
+            }
+            task.resume()
+            print("After Resume")
+        }
+    }
+    
+    // 동기식 코드를 GCD를 이용해서 비동기 방식으로 실행하기
+    @IBAction func loadImageByDispatchQueue(_ sender: Any) {
         imageView.image = nil
         
         DispatchQueue.global().async {
@@ -55,7 +80,9 @@ class ViewController: UIViewController {
             }
         }
     }
-    @IBAction func loadImageAsync2(_ sender: Any) {
+    
+    // Alamofire를 이용해서 이미지 로딩
+    @IBAction func loadImageByAlamofire(_ sender: Any) {
         imageView.image = nil
         
         let url = URL(string: urlStr)!
@@ -63,13 +90,15 @@ class ViewController: UIViewController {
 
         AF.request(request).responseData { (response) in
             if let data = response.data {
+                // 메인 쓰레드에서 동작
                 let image = UIImage(data: data)
                 self.imageView.image = image
             }
         }
     }
     
-    @IBAction func loadImageAsync3(_ sender: Any) {
+    // 이미지 라이브러리를 이용한 이미지 비동기 로딩
+    @IBAction func loadImageByImageLoader(_ sender: Any) {
         imageView.image = nil
         Kingfisher.ImageCache.default.clearCache()
                 
@@ -93,7 +122,7 @@ class ViewController: UIViewController {
                     DispatchQueue.main.sync {
                         self.imageView.image = image
                     }
-                    // 적당한 시간
+                    // 딜레이
                     Thread.sleep(forTimeInterval: 1)
                 }
             }
@@ -141,8 +170,6 @@ class ViewController: UIViewController {
             print("serial work3 finished")
         }
     }
-    
-    
     func asyncTask(taskNo: Int) {
         print("async task\(taskNo) started")
         AF.request(delayedResponseURL)
@@ -168,30 +195,91 @@ class ViewController: UIViewController {
         }
     }
     
+    func imageDownloadTask(urlStr: String) -> Promise<Data> {
+        return Promise { resolve, reject in
+            let url = URL(string: urlStr)!
+            print("image download task started :", urlStr)
+            URLSession.shared.dataTask(with: url) { data, response, error in
+                guard error == nil else {
+                    reject(error!)
+                    return
+                }
+                print("image download task finished :", urlStr)
+                resolve(data!)
+            }.resume()
+        }
+    }
+    
     // Then 모듈을 이용해서
     @IBAction func showQueueExample4(_ sender: Any) {
-        asyncTaskPromise(taskNo: 1)
-        .then { (ret) -> Promise<Int> in
-            print("task1 done with \(ret)")
-            return self.asyncTaskPromise(taskNo: 2)
-        }
-        .then { (ret) -> Promise<Int> in
-            print("task2 done with \(ret)")
-            return self.asyncTaskPromise(taskNo: 3)
-        }
-        .then { (ret) -> Void in
-            print("task3 done with \(ret)")
-        }
-        
+        imageDownloadTask(urlStr: urlList[0])
+        .then { data -> Promise<Data> in
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.imageView.image = image
+            }
+            // 딜레이
+            Thread.sleep(forTimeInterval: 1)
 
+            return self.imageDownloadTask(urlStr: self.urlList[1])
+        }
+        .then { data -> Promise<Data> in
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.imageView.image = image
+            }
+            // 딜레이
+            Thread.sleep(forTimeInterval: 1)
+
+            return self.imageDownloadTask(urlStr: self.urlList[2])
+        }
+        .then { data -> Promise<Data> in
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.imageView.image = image
+            }
+            // 딜레이
+            Thread.sleep(forTimeInterval: 1)
+            return self.imageDownloadTask(urlStr: self.urlList[3])
+        }
+        .then { data -> Void in
+            let image = UIImage(data: data)
+            DispatchQueue.main.async {
+                self.imageView.image = image
+            }
+            // 딜레이
+            print("Done!")
+        }
+        .onError { error in
+            print("Error!")
+        }
     }
     
     @IBAction func showQueueExample5() {
         DispatchQueue.global().async {
-            let ret1 = try! await(self.asyncTaskPromise(taskNo: 1))
-            let ret2 = try! await(self.asyncTaskPromise(taskNo: 2))
-            let ret3 = try! await(self.asyncTaskPromise(taskNo: 3))
-            print("ret1 \(ret1), ret2: \(ret2), ret3: \(ret3)")
+            let ret1 = try! await(self.imageDownloadTask(urlStr: self.urlList[0]))
+            DispatchQueue.main.sync {
+                self.imageView.image = UIImage(data: ret1)
+            }
+            Thread.sleep(forTimeInterval: 1)
+            let ret2 = try! await(self.imageDownloadTask(urlStr: self.urlList[1]))
+            DispatchQueue.main.sync {
+                self.imageView.image = UIImage(data: ret2)
+            }
+
+            Thread.sleep(forTimeInterval: 1)
+            let ret3 = try! await(self.imageDownloadTask(urlStr: self.urlList[2]))
+            DispatchQueue.main.sync {
+                self.imageView.image = UIImage(data: ret3)
+            }
+
+            Thread.sleep(forTimeInterval: 1)
+            let ret4 = try! await(self.imageDownloadTask(urlStr: self.urlList[3]))
+            DispatchQueue.main.sync {
+                self.imageView.image = UIImage(data: ret4)
+            }
+
+            print("ret1 \(ret1), ret2: \(ret2), ret3: \(ret3), ret4: \(ret4)")
         }
     }
 }

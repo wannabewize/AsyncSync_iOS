@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -27,34 +27,19 @@
                                             <action selector="loadImageSync:" destination="BYZ-38-t0r" id="MDW-1e-N8b"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="A1" id="Y99-oI-Fc7">
+                                    <barButtonItem title="Session" id="Y99-oI-Fc7" userLabel="URLSession">
                                         <connections>
-                                            <action selector="loadImageAsync1:" destination="BYZ-38-t0r" id="yne-Fb-5AT"/>
+                                            <action selector="loadImageURLSession:" destination="BYZ-38-t0r" id="f7t-Nm-GHk"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="A2" id="G9U-63-1ab">
+                                    <barButtonItem title="AF" id="G9U-63-1ab" userLabel="AF">
                                         <connections>
-                                            <action selector="loadImageAsync2:" destination="BYZ-38-t0r" id="Scn-JD-BW7"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="A3" id="Rl5-Mv-bBN">
-                                        <connections>
-                                            <action selector="loadImageAsync3:" destination="BYZ-38-t0r" id="ghQ-ba-XvC"/>
+                                            <action selector="loadImageByAlamofire:" destination="BYZ-38-t0r" id="Zaw-pj-AvO"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Q1" id="xdT-6n-BBw">
                                         <connections>
                                             <action selector="showQueueExample1:" destination="BYZ-38-t0r" id="tcf-P3-tLL"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Q2" id="4nm-17-obb">
-                                        <connections>
-                                            <action selector="showQueueExample2:" destination="BYZ-38-t0r" id="bbT-Pe-WSs"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Q3" id="0C8-eA-INT">
-                                        <connections>
-                                            <action selector="showQueueExample3:" destination="BYZ-38-t0r" id="o8e-u4-cZj"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Q4" id="5QZ-NI-cHD">
@@ -94,7 +79,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-259" y="30"/>
+            <point key="canvasLocation" x="-490" y="-2"/>
         </scene>
     </scenes>
     <resources>
