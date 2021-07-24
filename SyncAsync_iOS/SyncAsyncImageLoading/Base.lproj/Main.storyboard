@@ -22,34 +22,29 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EJ2-7l-na4">
                                 <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <items>
-                                    <barButtonItem title="Sync" id="DSk-8U-NoV">
+                                    <barButtonItem title="Block" id="DSk-8U-NoV">
                                         <connections>
                                             <action selector="loadImageSync:" destination="BYZ-38-t0r" id="MDW-1e-N8b"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="Session" id="Y99-oI-Fc7" userLabel="URLSession">
                                         <connections>
-                                            <action selector="loadImageURLSession:" destination="BYZ-38-t0r" id="f7t-Nm-GHk"/>
+                                            <action selector="loadImageURLSession:" destination="BYZ-38-t0r" id="X3s-t5-ZeS"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem title="Session(UIMain)" id="gev-qA-jIf" userLabel="URLSession">
+                                        <connections>
+                                            <action selector="loadImageURLSessionUIMain:" destination="BYZ-38-t0r" id="RxP-gX-mBN"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem title="AF" id="G9U-63-1ab" userLabel="AF">
                                         <connections>
-                                            <action selector="loadImageByAlamofire:" destination="BYZ-38-t0r" id="Zaw-pj-AvO"/>
+                                            <action selector="loadImageByAlamofire:" destination="BYZ-38-t0r" id="mmm-NR-B83"/>
                                         </connections>
                                     </barButtonItem>
-                                    <barButtonItem title="Q1" id="xdT-6n-BBw">
+                                    <barButtonItem title="KF" id="wmm-1n-eu5" userLabel="AF">
                                         <connections>
-                                            <action selector="showQueueExample1:" destination="BYZ-38-t0r" id="tcf-P3-tLL"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Q4" id="5QZ-NI-cHD">
-                                        <connections>
-                                            <action selector="showQueueExample4:" destination="BYZ-38-t0r" id="G6j-U8-gmh"/>
-                                        </connections>
-                                    </barButtonItem>
-                                    <barButtonItem title="Q5" id="1zQ-co-BnR">
-                                        <connections>
-                                            <action selector="showQueueExample5" destination="BYZ-38-t0r" id="thg-eG-OAe"/>
+                                            <action selector="loadImageByImageLoader:" destination="BYZ-38-t0r" id="BC1-xF-mN7"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>

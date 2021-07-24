@@ -11,16 +11,9 @@ import Kingfisher
 import Then
 
 class ViewController: UIViewController {
-    let delayedResponseURL = "http://192.168.12.9:3000"
     
     let urlStr = "http://www.ibiblio.org/wm/paint/auth/munch/munch.scream.jpg"
     
-    let urlList = [
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/2560px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Meisje_met_de_parel.jpg/1920px-Meisje_met_de_parel.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1449px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg/1076px-The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg"
-    ]
     
 
     @IBOutlet weak var imageView: UIImageView!
@@ -45,6 +38,27 @@ class ViewController: UIViewController {
     
     // URLSession, Task를 이용한 비동기식 네트워크
     @IBAction func loadImageURLSession(_ sender: Any) {
+        imageView.image = nil
+        
+        if let url = URL(string: urlStr) {
+
+            let task = URLSession.shared.dataTask(with: url) { (data, response, error) in
+                print("Task Start")
+                guard let data = data else {
+                    return
+                }
+                let image = UIImage(data: data)
+                // 앱 UI 접근은 메인 쓰레드에서
+                print("isMainThread", Thread.isMainThread)
+                self.imageView.image = image
+            }
+            task.resume()
+            print("After Resume")
+        }
+    }
+    
+    // URLSession, Task를 이용한 비동기식 네트워크 - MainThread에서 이미지 업데이트
+    @IBAction func loadImageURLSessionUIMain(_ sender: Any) {
         imageView.image = nil
         
         if let url = URL(string: urlStr) {
@@ -106,6 +120,16 @@ class ViewController: UIViewController {
             imageView.kf.setImage(with: url)
         }
     }
+
+    /*
+    let delayedResponseURL = "http://192.168.12.9:3000"
+    let urlList = [
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/2560px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Meisje_met_de_parel.jpg/1920px-Meisje_met_de_parel.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/1449px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg",
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/4/40/The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg/1076px-The_Kiss_-_Gustav_Klimt_-_Google_Cultural_Institute.jpg"
+    ]
+
     
     // 이미지 순차 다운로드와 변경
     @IBAction func showQueueExample1(_ sender: Any) {
@@ -282,4 +306,5 @@ class ViewController: UIViewController {
             print("ret1 \(ret1), ret2: \(ret2), ret3: \(ret3), ret4: \(ret4)")
         }
     }
+     */
 }
